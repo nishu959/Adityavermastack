@@ -4,7 +4,7 @@ def solve(arr, s, v):
       v.append(-1)
     elif (len(s)>0 and s[-1]>arr[i]):
       v.append(s[-1])
-    elif (len(s)>0 and s[-1]<arr[i]):
+    elif (len(s)>0 and s[-1]<=arr[i]):
       while(len(s)>0 and s[-1]<=arr[i]):
         s.pop()
       if len(s)==0:
