@@ -18,14 +18,14 @@ def solve1(arr, s, v):
 def solve2(arr, s, v):
   for i in range(len(arr)-1,-1,-1):
     if len(s)==0:
-      v.append(7)
+      v.append(len(arr))
     elif (len(s)>0 and s[-1][0]<arr[i]):
       v.append(s[-1][1])
     elif (len(s)>0 and s[-1][0]>=arr[i]):
       while(len(s)>0 and s[-1][0]>=arr[i]):
         s.pop()
       if len(s)==0:
-        v.append(7)
+        v.append(len(arr))
       else:
         v.append(s[-1][1])
     s.append([arr[i], i])
