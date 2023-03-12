@@ -1,20 +1,25 @@
-def solve(arr, s, v):
-  for i in range(0,len(arr),1):
-    if len(s)==0:
-      v.append(-1)
-    elif (len(s)>0 and s[-1]<arr[i]):
-      v.append(s[-1])
-    elif (len(s)>0 and s[-1]>=arr[i]):
-      while(len(s)>0 and s[-1]>=arr[i]):
-        s.pop()
-      if len(s)==0:
-        v.append(-1)
-      else:
-        v.append(s[-1])
-    s.append(arr[i])
-  return v
- 
-arr = list(map(int, input().split()))
-v = []
-
-print(solve(arr,[],v)) 
+class Solution:
+    def leftSmaller(self, n, a):
+        # code here
+        
+        stack = []
+        ans = []
+        
+        for i in range(n):
+            
+            if len(stack)==0:
+                ans.append(-1)
+                
+            else:
+                
+                while len(stack)>0 and stack[-1] >=a[i]:
+                    stack.pop()
+                    
+                if len(stack)==0:
+                    ans.append(-1)
+                else:
+                    ans.append(stack[-1])
+                    
+            stack.append(a[i])
+                    
+        return ans
