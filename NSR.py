@@ -1,21 +1,27 @@
-def solve(arr, s, v):
-  for i in range(len(arr)-1,-1,-1):
-    if len(s)==0:
-      v.append(-1)
-    elif (len(s)>0 and s[-1]<arr[i]):
-      v.append(s[-1])
-    elif (len(s)>0 and s[-1]>=arr[i]):
-      while(len(s)>0 and s[-1]>=arr[i]):
-        s.pop()
-      if len(s)==0:
-        v.append(-1)
-      else:
-        v.append(s[-1])
-    s.append(arr[i])
-  v.reverse()
-  return v
- 
-arr = list(map(int, input().split()))
-v = []
 
-print(solve(arr,[],v))
+class Solution:
+    def help_classmate(self, arr, n):
+        # Your code goes here
+        # Return the list
+        stack = []
+        ans = []
+        
+        for i in range(n-1, -1, -1):
+            
+            if len(stack)==0:
+                ans.append(-1)
+                
+            else:
+                
+                while len(stack)>0 and stack[-1]>= arr[i]:
+                    stack.pop()
+                    
+                if len(stack)==0:
+                    ans.append(-1)
+                else:
+                    ans.append(stack[-1])
+                    
+            stack.append(arr[i])
+            
+        
+        return ans[::-1]
