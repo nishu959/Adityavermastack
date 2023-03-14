@@ -1,59 +1,72 @@
-
-def MAH(arr):
-  s = []
-  v = []
-  for i in range(0,len(arr),1):
-    if len(s)==0:
-      v.append(-1)
-    elif (len(s)>0 and s[-1][0]<arr[i]):
-      v.append(s[-1][1])
-    elif (len(s)>0 and s[-1][0]>=arr[i]):
-      while(len(s)>0 and s[-1][0]>=arr[i]):
-        s.pop()
-      if len(s)==0:
-        v.append(-1)
-      else:
-        v.append(s[-1][1])
-    s.append([arr[i], i])
-  left = v
-  s = []
-  v = []
-  for i in range(len(arr)-1,-1,-1):
-    if len(s)==0:
-      v.append(len(arr))
-    elif (len(s)>0 and s[-1][0]<arr[i]):
-      v.append(s[-1][1])
-    elif (len(s)>0 and s[-1][0]>=arr[i]):
-      while(len(s)>0 and s[-1][0]>=arr[i]):
-        s.pop()
-      if len(s)==0:
-        v.append(len(arr))
-      else:
-        v.append(s[-1][1])
-    s.append([arr[i], i])
-  v.reverse()
-  right = v
-  width = []
-  for i in range(len(right)):
-    width.append(right[i]-left[i]-1) 
-  area=[]  
-  for i in range(len(arr)):
-    area.append(arr[i] * width[i]) 
-  return max(area)
+#User function Template for python3
 
 
-a = []
-for i in range(int(input())):
-  a.append(list(map(int,input().split())))
-arr = []
-for j in range(len(a[0])):
-  arr.append(a[0][j])
-mx = MAH(arr)
-for i in range(1,len(a)):
-  for j in range(0,len(a[0])):
-    if a[i][j] == 0:
-      arr[j] = 0
-    else:
-      arr[j]  = arr[j] + a[i][j]
-  mx = max(mx, MAH(arr))
-print(mx)
+class Solution:
+    
+    def maxArea(self,M, n, m):
+        # code here
+    
+        def MAH(heights):
+            stack = []
+            n = len(heights)
+            NSL = [-1]*n
+            
+            for i in range(n):
+                
+                while len(stack)>0 and stack[-1][0]>=heights[i]:
+                    stack.pop()
+
+                if len(stack)==0:
+                    NSL[i]=-1
+                else:
+                    NSL[i] = stack[-1][1]
+    
+                stack.append([heights[i], i])
+    
+            stack=[]
+            NSR=[n]*n
+            n = len(heights)
+    
+            for i in range(n-1, -1, -1):
+                
+                while len(stack)>0 and stack[-1][0]>=heights[i]:
+                    stack.pop()
+                if len(stack)==0:
+                    NSR[i]=n
+                else:
+                    NSR[i]=stack[-1][1]
+    
+                stack.append([heights[i],i])
+    
+            
+        
+    
+            area = 0
+            for i in range(n):
+                area = max(area , (NSR[i]-NSL[i]-1)*heights[i])
+            return area
+            
+        
+        arr= M[0]
+        mx= MAH(arr)
+        
+        for i in range(1,n):
+            
+            for j in range(m):
+                
+                if M[i][j]==0:
+                
+                    arr[j]=0
+                else:
+                    arr[j]+=1
+                    
+            
+            mx = max(mx, MAH(arr))
+        
+        return mx
+                
+
+
+        
+        
+        
