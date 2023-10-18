@@ -1,68 +1,71 @@
-s = []
-minele= 100
-def push(a):
-  global minele
-  if len(s)==0:
-    s.append(a)
-    minele = a
-    return
+class stack:
+    def __init__(self):
+        self.s = []
+        self.minele = 0
+        
+    def push(self,a):
+        if len(self.s)==0:
+            self.s.append(a)
+            self.minele = a 
+            return 
+        
+        if a<self.minele:
+            self.s.append(2*a - self.minele)
+            self.minele = a
+            
+        else:
+            self.s.append(a)
+            
+    def pop(self):
+        ele = self.s.pop()
+        if ele < self.minele:
+            val = self.minele 
+            self.minele = 2 * self.minele - ele
+            return val 
+            
+        else:
+            return ele
+            
+            
+    def getMin(self):
+        if len(self.s)==0:
+            return -1
+        return self.minele 
+        
+    def top(self):
+        if len(self.s)==0:
+            return -1
+            
+        ele = self.s[-1]
+        if ele<self.minele:
+            return self.minele
+        else:
+            return ele 
+            
+            
+            
+        
+        
     
-  if a>= minele:
-    s.append(a)
-  elif a<minele:
-    s.append(2*a-minele)
-    minele = a
-  return
-  
+s = stack()
+s.push(5)
+print(s.getMin())
+s.push(3)
+print(s.getMin())
+print(s.pop())
+print(s.getMin())
+print(s.pop())
 
-
-def pop():
-  global minele
-  if len(s)==0:
-    return
-  else:
-    if s[-1]>=minele:
-      s.pop()
-    elif s[-1]<minele:
-      minele = 2*minele - s[-1]
-      s.pop()
-  return
-  
-  
-def getmin():
-  if len(s)== 0:
-    return -1
-  return minele
-  
-def top():
-  if len(s)==0:
-    return -1
-  if s[-1]>= minele:
-    return s[-1]
-  elif s[-1]<minele:
-    return minele
-      
-      
-    
-#for checking the above program optional
-push(5)
-push(7)
-print(s)
-print(top())
-print(getmin())
-pop()
-print(s)
-print(getmin())
-push(2)
-print(s)
-print(getmin())
-push(8)
-print(s)
-
-print(getmin())
-print(top())
-pop()
-pop()
-print(getmin())
-print(s)
-print(top())
+s.push(8)
+s.push(9)
+print(s.top())
+print(s.getMin())
+s.push(2) 
+print(s.top())
+print(s.getMin())
+print(s.pop())
+print(s.getMin())
+s.push(6)
+print(s.getMin())
+print(s.pop())
+print(s.getMin())
